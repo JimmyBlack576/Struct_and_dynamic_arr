@@ -1,4 +1,7 @@
 ﻿#include <iostream>
+#include <stdio.h>
+#include <string>
+#include <conio.h>
 
 using namespace std;
 //output arr
@@ -19,6 +22,21 @@ void filling_matrix(int** arr1, int row, int col);
 void print_matrix(int** arr1, int row, int col);
 //transposition matrix
 int** transpon_matrix(int** arr1, int& row, int& col);
+
+struct phone_name
+{
+	string name;
+	long long number;
+};
+
+phone_name* input_num_and_name(phone_name* arr_name_number, int& r);
+
+phone_name* output(phone_name* arr_name_number, int& r);
+
+phone_name* change_data(phone_name* arr_name_number, int& r);
+
+void search(phone_name* arr_name_number, int& r);
+
 
 
 int main()
@@ -94,6 +112,54 @@ int main()
 	arr1 = transpon_matrix(arr1, row, col);
 	cout << endl;
 	print_matrix(arr1, row, col);
+	system("pause");
+	system("cls");
+
+	puts("Task 5________________________\n");
+	int r = 3, menu_item;
+	phone_name* arr_name_number = new phone_name[r];
+	do{
+	cout << "\n\tMenu: \n\n"
+		<< "[1] Enter data;\n"
+		<< "[2] Output data;\n"
+		<< "[3] Cahnge data;\n"
+		<< "[4] Search;\n"
+		<< "[0] Exit \n";
+	cin >> menu_item;
+	switch (menu_item) {
+	case 1: {
+		input_num_and_name(arr_name_number, r);
+		system("pause");
+		system("cls");
+		break;
+	}
+	case 2: {
+		output(arr_name_number, r);
+		system("pause");
+		system("cls");
+		break;
+	}
+	case 3: {
+		change_data(arr_name_number, r);
+		system("pause");
+		system("cls");
+		break;
+	}
+	case 4: {
+		search(arr_name_number, r);
+		system("pause");
+		system("cls");
+		break;
+	}
+	default:
+		if (menu_item == 0) break;
+		cout << "Wrong menu item!\n";
+		system("pause");
+		system("cls");
+		continue;
+	}
+	} while (menu_item != 0);
+
 }
 
 void print_arr(int** arr, int row, int col) {
@@ -282,4 +348,68 @@ int** transpon_matrix(int** arr1, int& row, int& col) {
 	col = temp;
 
 	return temp_matrix;
+}
+
+phone_name* input_num_and_name(phone_name* arr_name_number, int& r) {
+	for (int i = 0; i < r; i++) {
+		puts("Enter the name: ");
+		cin >> arr_name_number[i].name;
+		puts("Enter the number: ");
+		cin >> arr_name_number[i].number;
+	}
+	return arr_name_number;
+}
+
+phone_name* output(phone_name* arr_name_number, int& r) {
+	for (int i = 0; i < r; i++) {
+		cout << '[' << i + 1 << "] " << arr_name_number[i].name << "\t";
+		cout << arr_name_number[i].number << endl;
+	}
+	return arr_name_number;
+}
+
+phone_name* change_data(phone_name* arr_name_number, int& r) {
+	int change;
+	puts("Which item to change? ");
+	output(arr_name_number, r);
+	cin >> change;
+	puts("Enter the new name: ");
+	cin >> arr_name_number[change - 1].name;
+	puts("Enter the new number: ");
+	cin >> arr_name_number[change - 1].number;
+	change = 0;
+	return arr_name_number;
+
+}
+
+void search(phone_name* arr_name_number, int& r) {
+	long long find_num;
+	string find_name;
+	int ch;
+	puts("Choose a search method: ");
+	cout << "[1] - By name;\n"
+		<< "[2] - by number;\n";
+	cin >> ch;
+
+	if (ch == 1) {
+		puts("Enter the name: ");
+		cin >> find_name;
+		for (int i = 0; i < r; i++) {
+			if (arr_name_number[i].name == find_name) {
+				cout << arr_name_number[i].name << "\t";
+				cout << arr_name_number[i].number << endl;
+			}
+		}
+	}
+	else if (ch == 2) {
+		puts("Enter the number: ");
+		cin >> find_num;
+		for (int i = 0; i < r; i++) {
+			if (arr_name_number[i].number == find_num) {
+				cout << arr_name_number[i].name << endl;
+				cout << arr_name_number[i].number << endl;
+			}
+		}
+	}
+
 }
