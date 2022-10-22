@@ -105,20 +105,22 @@ void change_book(book* book_info, int &size) {
 
 book* search_book(book* book_info, int &size) {
 	int srh;
+
 	string search1;
-	char search2[25];
-	
+	string search2;
+	do{
 		cout << "\tПоиск: \n"
 			<< "[1] По автору \n"
 			<< "[2] По названию\n"
 			<< "[0] Выход \n";
-	do{
+	
 		cin >> srh;
 	
 		if (srh == 1) 
 		{
 			cout << " Введите фамилию автора: \n";
-			cin >> search1;
+			cin.get();
+			getline(cin, search1);
 			//gets_s(search1, 24);
 			//cout << search1;
 			//system("pause");
@@ -131,11 +133,14 @@ book* search_book(book* book_info, int &size) {
 					cout << " Жанр - " << book_info[i].genre << "  \n\n";
 				}
 			}
+			system("pause");
+			system("cls");
 		}
 		else if (srh == 2) {
 			cout << " Введите название книги: \n";
 			//cin >> search2;
-			gets_s(search2, 24);
+			cin.get();
+			getline(cin, search2);
 			for (int i = 0; i < size; i++) {
 				if (book_info[i].name == search2) {
 					cout << " Номер книги в библиотеке - " << i + 1 << endl;
@@ -145,6 +150,8 @@ book* search_book(book* book_info, int &size) {
 					cout << " Жанр - " << book_info[i].genre << "  \n\n";
 				}
 			}
+			system("pause");
+			system("cls");
 		}
 	} while (srh != 0);
 
@@ -170,6 +177,13 @@ book* sort_book(book* book_info, int &size) {
 			}
 		}
 		else if (srt == 2) {
+			for (int i = 0; i < size; i++) {
+				temp = book_info[i].author;
+				book_info[i].author = book_info[i].name;
+				book_info[i].name = temp;
+			}
+		}
+		else if (srt == 3) {
 			for (int i = 0; i < size; i++) {
 				temp = book_info[i].author;
 				book_info[i].author = book_info[i].publisher;
@@ -443,6 +457,8 @@ int main()
 		}
 		case 4: {
 			sort_book(book_info, size);
+			system("pause");
+			system("cls");
 			break;
 		}
 		default:
